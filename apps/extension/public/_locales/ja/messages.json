@@ -770,5 +770,55 @@
   },
   "pageCaptureRestrictedHint": {
     "message": "現在のページは制限付きプレビューです。サイトで全文の閲覧権限を取得して再読み込みするか、表示されている文章を選択して保存してください。"
+  },
+  "modelDirectPermission": {
+    "message": "Video summaries need direct access to $HOST$. Grant access, then clip the video again.",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "modelDirectAllow": {
+    "message": "Allow model access"
+  },
+  "modelDirectReady": {
+    "message": "Access granted. Please clip the video again."
+  },
+  "modelDirectDenied": {
+    "message": "Model access was not granted."
+  },
+  "regionSelect": {
+    "message": "範囲を選択"
+  },
+  "regionPickerTitle": {
+    "message": "クリップする範囲を選択"
+  },
+  "regionPickHint": {
+    "message": "マウスを動かして内容をクリックします。Esc でキャンセル。"
+  },
+  "regionSelected": {
+    "message": "範囲を選択済み"
+  },
+  "regionAdjustHint": {
+    "message": "← → 拡大 / 縮小 · ↑ ↓ 隣の範囲 · Enter で保存"
+  },
+  "regionExpand": {
+    "message": "拡大"
+  },
+  "regionShrink": {
+    "message": "縮小"
+  },
+  "regionReselect": {
+    "message": "選び直す"
+  },
+  "regionSave": {
+    "message": "EdgeEver に保存"
+  },
+  "regionCancel": {
+    "message": "キャンセル"
+  },
+  "regionEmpty": {
+    "message": "この範囲は空か、すでに削除されています。選び直してください。"
   }
 }

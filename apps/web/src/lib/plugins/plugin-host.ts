@@ -41,7 +41,6 @@ import {
   serializeTableDocument, tableFallbackMarkdown, structuredApiError,
   posterCapabilities, pluginPoster, pluginInfographic, applyPosterEdits, applyInfographicOperations, serializePosterDocument, serializeInfographicDocument,
 } from "./structured-note-api";
-import { api } from "@/lib/api";
 import type { EdgeEverRepository } from "@/lib/repository";
 import { WebPluginSecretStore, type PluginSecretStorage } from "@/lib/plugins/plugin-secret-store";
 import { WebPluginPackageStore, type CachedPluginPackage, type PluginPackageStorage } from "@/lib/plugins/plugin-package-store";
@@ -1047,24 +1046,24 @@ export class EdgeEverPluginHost {
       try { dispose(); } catch { /* A broken disposer must not strand the plugin. */ }
     }
     try { await active.plugin.deactivate?.(); } catch { /* Cleanup must continue after a broken deactivate hook. */ }
-    for (const key of [...this.commands.keys()]) {
+    for (const key of Array.from(this.commands.keys())) {
       if (key.startsWith(`${pluginId}:`)) this.commands.delete(key);
     }
-    for (const key of [...this.panels.keys()]) {
+    for (const key of Array.from(this.panels.keys())) {
       if (key.startsWith(`${pluginId}:`)) this.panels.delete(key);
     }
-    for (const key of [...this.embeds.keys()]) {
+    for (const key of Array.from(this.embeds.keys())) {
       if (key.startsWith(`${pluginId}:`)) this.embeds.delete(key);
     }
-    for (const [key, disposers] of [...this.mountedPanels]) {
+    for (const [key, disposers] of Array.from(this.mountedPanels)) {
       if (!key.startsWith(`${pluginId}:`)) continue;
-      for (const dispose of [...disposers]) {
+      for (const dispose of Array.from(disposers)) {
         try { dispose(); } catch { /* Panel cleanup must not strand the plugin. */ }
       }
     }
-    for (const [key, embedDisposers] of [...this.mountedEmbeds]) {
+    for (const [key, embedDisposers] of Array.from(this.mountedEmbeds)) {
       if (!key.startsWith(`${pluginId}:`)) continue;
-      for (const dispose of [...embedDisposers]) {
+      for (const dispose of Array.from(embedDisposers)) {
         try { dispose(); } catch { /* Embed cleanup must not strand the plugin. */ }
       }
     }
@@ -1155,6 +1154,7 @@ export class EdgeEverPluginHost {
           assertPermission(manifest, "notes:read");
           const result = await this.repository.listMemos({
             notebookId: input.notebookId,
+            includeTotal: true,
             q: input.text,
             sort: input.sort,
             limit: Math.min(Math.max(input.limit ?? 50, 1), 200),
@@ -1164,12 +1164,14 @@ export class EdgeEverPluginHost {
             .filter((note) => !input.tags?.length || input.tags.every((tag) => note.tags.includes(tag)))
             .map(toPluginNoteSummary);
           const offset = Math.max(input.offset ?? 0, 0);
+          if (result.totalCount === undefined) throw new Error("note_query_total_missing");
           return { notes, totalCount: result.totalCount, nextOffset: result.nextCursor ? offset + result.memos.length : null };
         },
         queryContent: async (input = {}) => {
           assertPermission(manifest, "notes:read");
           const result = await this.repository.listMemos({
             notebookId: input.notebookId,
+            includeTotal: true,
             q: input.text,
             sort: input.sort,
             limit: Math.min(Math.max(input.limit ?? 50, 1), 200),
@@ -1181,6 +1183,7 @@ export class EdgeEverPluginHost {
           const notes = await Promise.all(summaries.map(async (note) =>
             toPluginNote((await this.repository.getMemo(note.id)).memo)));
           const offset = Math.max(input.offset ?? 0, 0);
+          if (result.totalCount === undefined) throw new Error("note_query_total_missing");
           return { notes, totalCount: result.totalCount, nextOffset: result.nextCursor ? offset + result.memos.length : null };
         },
         get: async (noteId) => {
@@ -1618,7 +1621,7 @@ export class EdgeEverPluginHost {
             this.refreshSnapshot();
             const dispose = () => {
               this.embeds.delete(key);
-              for (const mountedDispose of [...(this.mountedEmbeds.get(key) ?? [])]) mountedDispose();
+              for (const mountedDispose of Array.from(this.mountedEmbeds.get(key) ?? [])) mountedDispose();
               this.refreshSnapshot();
             };
             disposers.push(dispose);

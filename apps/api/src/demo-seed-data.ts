@@ -18,13 +18,13 @@ import {
 export { decodeDemoAttachment };
 
 export const DEMO_SEED_NOTEBOOKS = [
-  { id: "nb_inbox", parentId: null, name: "等待分类", slug: "inbox", icon: "notebook", color: "#0f766e", sortOrder: 10 },
-  { id: "nb_projects", parentId: null, name: "工作项目", slug: "work-projects", icon: "notebook", color: "#2563eb", sortOrder: 20 },
-  { id: "nb_learning", parentId: null, name: "学习资料", slug: "learning-resources", icon: "notebook", color: "#7c3aed", sortOrder: 30 },
-  { id: "nb_creative", parentId: null, name: "灵感创作", slug: "creative-ideas", icon: "notebook", color: "#db2777", sortOrder: 40 },
-  { id: "nb_personal", parentId: null, name: "生活个人", slug: "personal-life", icon: "notebook", color: "#ea580c", sortOrder: 50 },
-  { id: "nb_demo_features", parentId: "nb_projects", name: "功能演示", slug: "demo-features", icon: "notebook", color: "#0891b2", sortOrder: 21 },
-  { id: "nb_demo_features_en", parentId: "nb_projects", name: "Feature Demos", slug: "feature-demos", icon: "notebook", color: "#0e7490", sortOrder: 22 },
+  { id: "nb_inbox", parentId: null, name: "等待分类", slug: "inbox", icon: "notebook", color: null, sortOrder: 10 },
+  { id: "nb_projects", parentId: null, name: "工作项目", slug: "work-projects", icon: "notebook", color: null, sortOrder: 20 },
+  { id: "nb_learning", parentId: null, name: "学习资料", slug: "learning-resources", icon: "notebook", color: null, sortOrder: 30 },
+  { id: "nb_creative", parentId: null, name: "灵感创作", slug: "creative-ideas", icon: "notebook", color: null, sortOrder: 40 },
+  { id: "nb_personal", parentId: null, name: "生活个人", slug: "personal-life", icon: "notebook", color: null, sortOrder: 50 },
+  { id: "nb_demo_features", parentId: "nb_projects", name: "功能演示", slug: "demo-features", icon: "notebook", color: null, sortOrder: 21 },
+  { id: "nb_demo_features_en", parentId: "nb_projects", name: "Feature Demos", slug: "feature-demos", icon: "notebook", color: null, sortOrder: 22 },
 ];
 
 export const DEMO_ARCHITECTURE_DIAGRAM_ZH: DiagramDocument = {
@@ -288,8 +288,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
   },
   elements: [
     {
-      id: "accent-bar",
-      name: "accent-bar",
+      id: "accent",
+      name: "accent",
       type: "rect",
       x: 96,
       y: 110,
@@ -301,8 +301,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       locked: false,
     },
     {
-      id: "badge-text",
-      name: "badge-text",
+      id: "badge",
+      name: "badge",
       type: "text",
       role: "badge",
       text: "EDGEEVER · 知识艺术",
@@ -359,8 +359,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       textAlign: "left",
     },
     {
-      id: "card-1-bg",
-      name: "card-1-bg",
+      id: "section-1-card",
+      name: "section-1-card",
       type: "rect",
       x: 96,
       y: 590,
@@ -373,8 +373,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       locked: false,
     },
     {
-      id: "card-1-title",
-      name: "card-1-title",
+      id: "section-1-heading",
+      name: "section-1-heading",
       type: "text",
       text: "01 · 原生 MCP / ACP 双协议支持",
       x: 136,
@@ -391,8 +391,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       textAlign: "left",
     },
     {
-      id: "card-1-body",
-      name: "card-1-body",
+      id: "section-1-body",
+      name: "section-1-body",
       type: "text",
       text: "原生对接 Claude、Cursor、Codex 等外部 Agent，桌面端无缝协同本地智能体。",
       x: 136,
@@ -410,8 +410,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       lineHeight: 1.4,
     },
     {
-      id: "card-2-bg",
-      name: "card-2-bg",
+      id: "section-2-card",
+      name: "section-2-card",
       type: "rect",
       x: 96,
       y: 840,
@@ -424,8 +424,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       locked: false,
     },
     {
-      id: "card-2-title",
-      name: "card-2-title",
+      id: "section-2-heading",
+      name: "section-2-heading",
       type: "text",
       text: "02 · 零成本 Serverless 与自由部署",
       x: 136,
@@ -442,8 +442,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       textAlign: "left",
     },
     {
-      id: "card-2-body",
-      name: "card-2-body",
+      id: "section-2-body",
+      name: "section-2-body",
       type: "text",
       text: "跑在 Cloudflare 免费额度内或一键 Docker 自建，标准 SQLite 存储，导出无阻碍。",
       x: 136,
@@ -461,8 +461,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       lineHeight: 1.4,
     },
     {
-      id: "card-3-bg",
-      name: "card-3-bg",
+      id: "section-3-card",
+      name: "section-3-card",
       type: "rect",
       x: 96,
       y: 1090,
@@ -475,8 +475,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       locked: false,
     },
     {
-      id: "card-3-title",
-      name: "card-3-title",
+      id: "section-3-heading",
+      name: "section-3-heading",
       type: "text",
       text: "03 · 全平台客户端与独立知识库",
       x: 136,
@@ -493,8 +493,8 @@ export const DEMO_POSTER_DOCUMENT_ZH: PosterDocument = {
       textAlign: "left",
     },
     {
-      id: "card-3-body",
-      name: "card-3-body",
+      id: "section-3-body",
+      name: "section-3-body",
       type: "text",
       text: "macOS、Windows、Linux、iOS 与 Android 覆盖，支持一键将笔记本发布为知识库网站。",
       x: 136,
@@ -527,8 +527,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
   },
   elements: [
     {
-      id: "accent-bar",
-      name: "accent-bar",
+      id: "accent",
+      name: "accent",
       type: "rect",
       x: 96,
       y: 110,
@@ -540,8 +540,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       locked: false,
     },
     {
-      id: "badge-text",
-      name: "badge-text",
+      id: "badge",
+      name: "badge",
       type: "text",
       role: "badge",
       text: "EDGEEVER · KNOWLEDGE ART",
@@ -598,8 +598,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       textAlign: "left",
     },
     {
-      id: "card-1-bg",
-      name: "card-1-bg",
+      id: "section-1-card",
+      name: "section-1-card",
       type: "rect",
       x: 96,
       y: 590,
@@ -612,8 +612,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       locked: false,
     },
     {
-      id: "card-1-title",
-      name: "card-1-title",
+      id: "section-1-heading",
+      name: "section-1-heading",
       type: "text",
       text: "01 · Native MCP & ACP Dual Protocols",
       x: 136,
@@ -630,8 +630,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       textAlign: "left",
     },
     {
-      id: "card-1-body",
-      name: "card-1-body",
+      id: "section-1-body",
+      name: "section-1-body",
       type: "text",
       text: "Connect Claude, Cursor, and Codex via MCP, and drive local agents seamlessly via ACP on desktop.",
       x: 136,
@@ -649,8 +649,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       lineHeight: 1.4,
     },
     {
-      id: "card-2-bg",
-      name: "card-2-bg",
+      id: "section-2-card",
+      name: "section-2-card",
       type: "rect",
       x: 96,
       y: 840,
@@ -663,8 +663,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       locked: false,
     },
     {
-      id: "card-2-title",
-      name: "card-2-title",
+      id: "section-2-heading",
+      name: "section-2-heading",
       type: "text",
       text: "02 · 100% Free Serverless & Self-Hosting",
       x: 136,
@@ -681,8 +681,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       textAlign: "left",
     },
     {
-      id: "card-2-body",
-      name: "card-2-body",
+      id: "section-2-body",
+      name: "section-2-body",
       type: "text",
       text: "Run within Cloudflare free quotas or one-command Docker on your VPS/NAS with standard SQLite storage.",
       x: 136,
@@ -700,8 +700,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       lineHeight: 1.4,
     },
     {
-      id: "card-3-bg",
-      name: "card-3-bg",
+      id: "section-3-card",
+      name: "section-3-card",
       type: "rect",
       x: 96,
       y: 1090,
@@ -714,8 +714,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       locked: false,
     },
     {
-      id: "card-3-title",
-      name: "card-3-title",
+      id: "section-3-heading",
+      name: "section-3-heading",
       type: "text",
       text: "03 · Full-Platform Apps & Knowledge Sites",
       x: 136,
@@ -732,8 +732,8 @@ export const DEMO_POSTER_DOCUMENT_EN: PosterDocument = {
       textAlign: "left",
     },
     {
-      id: "card-3-body",
-      name: "card-3-body",
+      id: "section-3-body",
+      name: "section-3-body",
       type: "text",
       text: "Native coverage on macOS, Windows, Linux, iOS & Android; publish entire notebooks as standalone sites.",
       x: 136,
@@ -999,35 +999,27 @@ export const DEMO_SEED_MEMOS_ZH = [
 通过下面的 Mermaid 架构图，你可以清晰了解 EdgeEver 如何将多端客户端、零成本云基础设施与 AI Agent 紧密串联：
 
 \`\`\`mermaid
-flowchart TD
-    subgraph MultiClients["全端客户端矩阵"]
-        C1["Web / PWA (离线草稿 & 增量同步)"]
-        C2["macOS 桌面端 (Electron + Rust Sidecar)"]
-        C3["Windows / Linux 桌面端 (ACP 智能体集成)"]
-        C4["Android 原生 App (Expo + SQLite)"]
-        C5["iOS 原生 App (SwiftUI + GRDB)"]
-        C6["浏览器剪藏插件 (Chrome / Edge / Firefox)"]
+flowchart LR
+    subgraph ClientsBox["全端客户端与智能体"]
+        Clients["全端客户端矩阵<br/>Web · PWA · 桌面客户端<br/>iOS · Android · 浏览器剪藏"]
+        Agents["外部 AI 智能体<br/>Claude Code · Cursor · Antigravity"]
     end
 
-    subgraph CoreEngine["业务与数据服务层"]
-        API["Hono API 引擎 (Cloudflare Workers / Docker)"]
-        MCP["原生 MCP Endpoint (/mcp 2026-07-28 & 2025)"]
-        D1[("D1 / SQLite 数据库 (双向同步 & 修订版本)")]
-        R2[("R2 / S3 资源存储 (图片与多媒体附件)")]
+    subgraph Platform["EdgeEver 平台核心 (Cloudflare Workers / Docker)"]
+        API["统一 REST API 入口<br/>认证鉴权 · 限流 · 增量同步游标"]
+        MCP["原生 MCP 服务端点 (/mcp)<br/>上下文感知 · 工具读写协议"]
     end
 
-    subgraph AIAgents["AI 智能体与外部生态"]
-        A1["Claude Code / Cursor / Antigravity"]
-        A2["行内 AI 助手 (OpenAI / Gemini / DeepSeek)"]
-        A3["Notion 数据库 / 飞书多维表格联动"]
+    subgraph BackendBox["AI 模型与数据存储"]
+        LLMs["主流大语言模型 (BYOK 直连)<br/>OpenAI · Gemini · DeepSeek"]
+        Storage[("数据与对象存储<br/>Cloudflare D1 / SQLite · R2 / S3 兼容")]
     end
 
-    MultiClients <==>|REST API & 同步游标| API
-    API <==> D1 & R2
-    MCP <==> D1 & R2
-    A1 <==>|MCP Tools / SSE| MCP
-    A2 -.->|BYOK 密钥直连| MultiClients
-    A1 -.->|双向数据同步| A3
+    Clients <-->|HTTPS 增量同步| API
+    Clients -->|BYOK 客户端直连 · 隐私安全| LLMs
+    Agents <-->|MCP Tools / SSE 协议| MCP
+    API <--> Storage
+    MCP <--> Storage
 \`\`\`
 
 ---
@@ -1352,35 +1344,27 @@ export const DEMO_MEMO_ENGLISH = {
 The Mermaid diagram below demonstrates how EdgeEver connects cross-platform clients, zero-cost cloud infrastructure, and AI Agents into a cohesive workflow:
 
 \`\`\`mermaid
-flowchart TD
-    subgraph MultiClients["Client Matrix"]
-        C1["Web / PWA (Offline Drafts & Sync Queue)"]
-        C2["macOS Desktop (Electron + Rust Sidecar)"]
-        C3["Windows / Linux Desktop (ACP Agent Integration)"]
-        C4["Android Native App (Expo + SQLite)"]
-        C5["iOS Native App (SwiftUI + GRDB)"]
-        C6["Web Clipper (Chrome / Edge / Firefox)"]
+flowchart LR
+    subgraph ClientsBox["Cross-platform clients & agents"]
+        Clients["Cross-Platform Clients<br/>Web · PWA · Desktop Apps<br/>iOS · Android · Web Clipper"]
+        Agents["External AI Agents<br/>Claude Code · Cursor · Antigravity"]
     end
 
-    subgraph CoreEngine["Service & Storage Core"]
-        API["Hono API Engine (Cloudflare Workers / Docker)"]
-        MCP["Native MCP Endpoint (/mcp 2026-07-28 & 2025)"]
-        D1[("D1 / SQLite Database (Sync Cursor & Revisions)")]
-        R2[("R2 / S3 Storage (Images & Media Attachments)")]
+    subgraph Platform["EdgeEver Platform Core (Cloudflare Workers / Docker)"]
+        API["Unified REST API Entry<br/>Auth · Rate Limiting · Sync Cursor"]
+        MCP["Native MCP Endpoint (/mcp)<br/>Context Retrieval · Read/Write Tools"]
     end
 
-    subgraph AIAgents["AI Agents & Integrations"]
-        A1["Claude Code / Cursor / Antigravity"]
-        A2["Inline AI Assistant (OpenAI / Gemini / DeepSeek)"]
-        A3["Notion DB / Feishu Bitable Sync"]
+    subgraph BackendBox["AI Models & Data Storage"]
+        LLMs["LLM Providers (Direct BYOK)<br/>OpenAI · Gemini · DeepSeek"]
+        Storage[("Data & Object Storage<br/>Cloudflare D1 / SQLite · R2 / S3 Compatible")]
     end
 
-    MultiClients <==>|REST API & Sync Cursor| API
-    API <==> D1 & R2
-    MCP <==> D1 & R2
-    A1 <==>|MCP Tools / SSE| MCP
-    A2 -.->|BYOK Direct Key| MultiClients
-    A1 -.->|Bi-directional Sync| A3
+    Clients <-->|HTTPS Incremental Sync| API
+    Clients -->|Direct BYOK · Privacy First| LLMs
+    Agents <-->|MCP Tools / SSE Protocol| MCP
+    API <--> Storage
+    MCP <--> Storage
 \`\`\`
 
 ---

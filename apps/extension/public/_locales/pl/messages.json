@@ -770,5 +770,55 @@
   },
   "pageCaptureRestrictedHint": {
     "message": "Dostępny jest tylko ograniczony podgląd. Uzyskaj pełny dostęp na stronie i odśwież ją lub zaznacz widoczny fragment do zapisania."
+  },
+  "modelDirectPermission": {
+    "message": "Video summaries need direct access to $HOST$. Grant access, then clip the video again.",
+    "placeholders": {
+      "host": {
+        "content": "$1"
+      }
+    }
+  },
+  "modelDirectAllow": {
+    "message": "Allow model access"
+  },
+  "modelDirectReady": {
+    "message": "Access granted. Please clip the video again."
+  },
+  "modelDirectDenied": {
+    "message": "Model access was not granted."
+  },
+  "regionSelect": {
+    "message": "Wybierz obszar"
+  },
+  "regionPickerTitle": {
+    "message": "Wybierz obszar do zapisania"
+  },
+  "regionPickHint": {
+    "message": "Wskaż i kliknij blok treści. Esc anuluje wybór."
+  },
+  "regionSelected": {
+    "message": "Obszar wybrany"
+  },
+  "regionAdjustHint": {
+    "message": "← → Większy / mniejszy · ↑ ↓ Sąsiedni obszar · Enter zapisuje"
+  },
+  "regionExpand": {
+    "message": "Większy"
+  },
+  "regionShrink": {
+    "message": "Mniejszy"
+  },
+  "regionReselect": {
+    "message": "Wybierz ponownie"
+  },
+  "regionSave": {
+    "message": "Zapisz w EdgeEver"
+  },
+  "regionCancel": {
+    "message": "Anuluj"
+  },
+  "regionEmpty": {
+    "message": "Ten obszar jest pusty lub już niedostępny. Wybierz inny."
   }
 }

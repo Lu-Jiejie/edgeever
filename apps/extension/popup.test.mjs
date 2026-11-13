@@ -1,7 +1,23 @@
 import { expect, test } from "bun:test";
 import { captureCurrentPage } from "./src/popup";
+import { testConnection } from "./src/extension";
 
 const settings = { instanceUrl: "https://example.com", token: "token", notebookId: "" };
+
+test("area selection requests permission in the click and starts the picker without capturing the page", async () => {
+  const { startRegionClip } = await import("./src/popup");
+  let insideClick = true;
+  const messages = [];
+  await withChrome({
+    permissions: { request: async () => { expect(insideClick).toBe(true); return true; } },
+    runtime: { sendMessage: async message => { messages.push(message); return { ok: true }; } },
+  }, async () => {
+    const starting = startRegionClip(settings);
+    insideClick = false;
+    await starting;
+    expect(messages).toEqual([{ type: "startRegionClip" }]);
+  });
+});
 async function withChrome(overrides, run) {
   const previous = globalThis.chrome;
   globalThis.chrome = { i18n: { getMessage: key => key }, ...overrides };
@@ -39,6 +55,31 @@ test("denied permission prevents popup capture", async () => {
     await expect(captureCurrentPage(settings)).rejects.toThrow("instancePermissionRequired");
     expect(captures).toBe(0);
   });
+});
+
+test("instance permission omits nonstandard ports while connection keeps the configured endpoint", async () => {
+  const originalFetch = globalThis.fetch;
+  try {
+    for (const instanceUrl of ["http://127.0.0.1:8787", "https://example.com:8443", "http://[::1]:8787"]) {
+      let permissionGranted = false;
+      await withChrome({ permissions: { request: async ({ origins }) => {
+        const url = new URL(instanceUrl);
+        expect(origins).toEqual([`${url.protocol}//${url.hostname}/*`]);
+        permissionGranted = true;
+        return true;
+      } } }, async () => {
+        globalThis.fetch = async (url, options) => {
+          expect(permissionGranted).toBe(true);
+          expect(url).toBe(`${instanceUrl}/api/v1/notebooks`);
+          expect(options.headers.Authorization).toBe("Bearer token");
+          return Response.json({ notebooks: [{ id: "inbox", name: "Inbox" }] });
+        };
+        expect(await testConnection({ ...settings, instanceUrl })).toEqual([{ id: "inbox", name: "Inbox" }]);
+      });
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });
 
 test("missing configuration never requests permissions or capture", async () => {

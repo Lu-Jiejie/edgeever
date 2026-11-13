@@ -1,4 +1,4 @@
-export type DesktopAcpAdapterId = "codex" | "claudeCode" | "antigravity" | "openClaw" | "hermesAgent" | "grokBuild" | "deepseekHarness" | "piAgent" | "workbuddyCn" | "workbuddyIntl";
+export type DesktopAcpAdapterId = "codex" | "claudeCode" | "antigravity" | "openClaw" | "hermesAgent" | "grokBuild" | "deepseekHarness" | "piAgent" | "workbuddyCn" | "workbuddyIntl" | "codebuddy";
 export type DesktopAcpAdapterState = "not_installed" | "not_probed" | "installing" | "needs_login" | "available" | "failed";
 
 export type DesktopAcpPromptCapabilities = {
@@ -78,6 +78,10 @@ export type DesktopAcpPromptInput = {
   path?: string;
   prompt: string;
   contextText?: string;
+  // Replayed only when this chat has no live ACP process. A live session already contains it.
+  historyText?: string;
+  // Keeps one agent process for this sidebar chat. Omit it for a one-shot call.
+  sessionKey?: string;
   attachments?: DesktopAcpAttachment[];
   // Infographic edits apply a validated proposal in the editor. They must not
   // also grant the agent write access to the note document.
@@ -115,7 +119,7 @@ export const startsNewLocalAgentThread = (
 ) => next.source === "local" && (previous.source !== "local" || previous.adapterId !== next.adapterId);
 
 const AI_SIDEBAR_ADAPTER_IDS = new Set<string>([
-  "codex", "claudeCode", "antigravity", "openClaw", "hermesAgent", "grokBuild", "deepseekHarness", "piAgent", "workbuddyCn", "workbuddyIntl",
+  "codex", "claudeCode", "antigravity", "openClaw", "hermesAgent", "grokBuild", "deepseekHarness", "piAgent", "workbuddyCn", "workbuddyIntl", "codebuddy",
 ]);
 
 export const aiSidebarSourceFromStorage = (value: string | null, desktopAvailable: boolean): AiSidebarSource => (
@@ -199,6 +203,30 @@ export const authenticateDesktopAcpAdapter = async (input: { id: DesktopAcpAdapt
   const desktop = bridge();
   if (!desktop?.authenticateAcpAdapter) throw new Error("desktop_acp_unavailable");
   return desktop.authenticateAcpAdapter(input);
+};
+
+export const cancelDesktopAcpAuthentication = async (id: "codebuddy") => {
+  const desktop = bridge();
+  if (!desktop?.cancelAcpAuthentication) return { cancelled: false };
+  return desktop.cancelAcpAuthentication(id);
+};
+
+export const reopenDesktopAcpLoginPage = async (id: "codebuddy") => {
+  const desktop = bridge();
+  if (!desktop?.reopenAcpLoginPage) return { opened: false };
+  return desktop.reopenAcpLoginPage(id);
+};
+
+// Region hints only for login methods verified end to end (#758); other
+// methods keep the name the CLI reports.
+export const codeBuddyAuthMethodLabelKey = (methodId: string) => (
+  methodId === "internal" ? "aiAssistant.agentSource.codebuddyMethodInternal" : null
+);
+
+export const prepareDesktopAcp = async (input: Omit<DesktopAcpPromptInput, "prompt" | "contextText" | "historyText" | "attachments">) => {
+  const desktop = bridge();
+  if (!desktop?.prepareAcp || !input.sessionKey) return { ready: false as const };
+  return desktop.prepareAcp(input);
 };
 
 export const promptDesktopAcp = async (input: DesktopAcpPromptInput): Promise<DesktopAcpPromptResult> => {

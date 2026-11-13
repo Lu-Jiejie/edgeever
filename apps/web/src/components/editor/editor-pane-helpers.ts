@@ -9,7 +9,7 @@ import type { MemoUpdateSyncPayload } from "@/lib/local-db";
 import { getAttachmentLinkFromEventTarget } from "./attachment-resource-menu";
 import type { NoteLinkHintPosition } from "./EditorPaneChrome";
 
-export const SUPPORTED_PASTE_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/gif", "image/webp", "image/avif"]);
+export { SUPPORTED_IMAGE_MIME_TYPES as SUPPORTED_PASTE_IMAGE_TYPES } from "@edgeever/shared";
 export const MOBILE_EDITOR_QUERY = "(max-width: 639px)";
 export const MOBILE_DRAFT_PERSIST_DELAY_MS = 800;
 
@@ -96,6 +96,9 @@ export const resetEditorDocument = (editor: Editor, content: TiptapDoc) => {
     doc: editor.schema.nodeFromJSON(content),
     plugins: editor.state.plugins,
   }));
+  // updateState bypasses TipTap's transaction subscribers. Refresh node-view
+  // controls even when the new note reuses the same image and selection.
+  editor.view.dispatch(editor.state.tr.setMeta("addToHistory", false));
   releaseHtmlMediaSources({
     querySelectorAll: (selector)=>previousMedia.filter(node=>node.matches(selector) && !root.contains(node)),
   });
